@@ -1,10 +1,13 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import Button from "./components/Button";
+import { useState } from "react";
 
 export default function Home() {
-  const [serviceClicked, setServiceClicked] = React.useState(false);
-  function handleClick() {
+  const [serviceClicked, setServiceClicked] = useState(false);
+
+  const handleServiceClicked = () => {
     setServiceClicked(!serviceClicked);
   }
   return (
@@ -28,28 +31,15 @@ export default function Home() {
           <ol>
             Choose your service:
             <li>
-              <button
-                onClick={handleClick}
-                style={{ backgroundColor: serviceClicked ? "red" : "white" }}
-              >
-                Gel Manicure 120
-              </button>
+            <Button serviceName={"Gel Manicure 120"} handleClick={handleServiceClicked}></Button>
             </li>
             <li>
-              <button
-                onClick={handleClick}
-                style={{ backgroundColor: serviceClicked ? "red" : "white" }}
-              >
-                Pedicure 80
-              </button>
+            <Button serviceName={"Pedicure 80"} handleClick={handleServiceClicked}></Button>
+
             </li>
             <li>
-              <button
-                onClick={handleClick}
-                style={{ backgroundColor: serviceClicked ? "red" : "white" }}
-              >
-                Manicure and Pedicure 200
-              </button>
+            <Button serviceName={"Manicure and Pedicure 200"} handleClick={handleServiceClicked}></Button>
+
             </li>
           </ol>
           {serviceClicked && <button>Book Now</button>}
