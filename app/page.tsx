@@ -8,8 +8,8 @@ export default function Home() {
 
   const [services, dispatch] = useReducer(servicesReducer, initialServices);
 
-  const handleServiceClicked = () => {
-    dispatch({ type: "ADD_SERVICE", id: });
+  const handleServiceClicked = (id: number) => {
+    dispatch({ type: "CLICKED", id });
   };
 
 
@@ -34,19 +34,13 @@ export default function Home() {
         <div className="services">
           <ol>
             Choose your service:
-            <li>
-              <Button serviceName={"Gel Manicure 120"} handleClick={handleServiceClicked}></Button>
-            </li>
-            <li>
-              <Button serviceName={"Pedicure 80"} handleClick={handleServiceClicked}></Button>
-
-            </li>
-            <li>
-              <Button serviceName={"Manicure and Pedicure 200"} handleClick={handleServiceClicked}></Button>
-
-            </li>
+            {services.services.map((service)=>{
+              return <li key={service.id}>
+                <Button serviceName={service.serviceName} handleClick={handleServiceClicked}></Button>
+                </li>
+            })}        
           </ol>
-          {serviceClicked && <button>Book Now</button>}
+          {services.serviceClicked && <button>Book Now</button>}
         </div>
       </main>
     </>
