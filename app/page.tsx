@@ -2,14 +2,18 @@
 import Image from "next/image";
 import React from "react";
 import Button from "./components/Button";
-import { useState } from "react";
+import { useReducer } from "react";
 
 export default function Home() {
-  const [serviceClicked, setServiceClicked] = useState(false);
+
+  const [services, dispatch] = useReducer(servicesReducer, initialServices);
 
   const handleServiceClicked = () => {
-    setServiceClicked(!serviceClicked);
-  }
+    dispatch({ type: "ADD_SERVICE", id: });
+  };
+
+
+
   return (
     <>
       <nav>
@@ -31,14 +35,14 @@ export default function Home() {
           <ol>
             Choose your service:
             <li>
-            <Button serviceName={"Gel Manicure 120"} handleClick={handleServiceClicked}></Button>
+              <Button serviceName={"Gel Manicure 120"} handleClick={handleServiceClicked}></Button>
             </li>
             <li>
-            <Button serviceName={"Pedicure 80"} handleClick={handleServiceClicked}></Button>
+              <Button serviceName={"Pedicure 80"} handleClick={handleServiceClicked}></Button>
 
             </li>
             <li>
-            <Button serviceName={"Manicure and Pedicure 200"} handleClick={handleServiceClicked}></Button>
+              <Button serviceName={"Manicure and Pedicure 200"} handleClick={handleServiceClicked}></Button>
 
             </li>
           </ol>
@@ -48,3 +52,33 @@ export default function Home() {
     </>
   );
 }
+
+const servicesReducer = (state: typeof initialServices, action: { type: string, id: number }) => {
+  switch (action.type) {
+    case "CLICKED":
+      return {
+        ...state,
+        serviceClicked: !state.serviceClicked
+      };
+    default:
+      return state;
+  }
+};
+
+const initialServices = {
+  serviceClicked: false,
+  services: [
+    {
+      id: 1,
+      serviceName: "Gel Manicure 120"
+    },
+    {
+      id: 2,
+      serviceName: "Pedicure 80"
+    },
+    {
+      id: 3,
+      serviceName: "Manicure and Pedicure 200"
+    }
+  ]
+};
